@@ -1,6 +1,6 @@
-# Fildem
+# Global-File-Menu
 
-## Global menu for Ubuntu 20
+## Global menu GNOME Shell extension
 
 [![Buy Me A Coffee](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg)](https://buymeacoffee.com/gonza)
 
@@ -14,7 +14,7 @@ This is a prototype, as I don’t know if people will like or how much it will l
 
 ## installation
 
-### Ubuntu 20
+### Ubuntu
 
 You can install the modules with
 
