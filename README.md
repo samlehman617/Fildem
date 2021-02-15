@@ -36,15 +36,21 @@ gtk-modules="appmenu-gtk-module"
 ```
 
 #### Clone repo:
-`git clone https://github.com/samlehman617/gnome-shell-extension-filemenu`
+```
+git clone https://github.com/samlehman617/gnome-shell-extension-filemenu
+```
 
 #### Move extension directory:
 Move our extension code and metadata to the GNOME Shell Extensions directory.
-`mv gnome-shell-extension-filemenu/globalfilemenu@samlehman.dev ~/.local/share/gnome-shell/extensions`
+```
+mv gnome-shell-extension-filemenu/globalfilemenu@samlehman.dev ~/.local/share/gnome-shell/extensions
+```
 
 #### Move code to executable directory:
 Move this repo to somewhere in your system PATH (I use `~/Applications`).
-`mv gnome-shell-extension-filemenu ~/Applications`
+```
+mv gnome-shell-extension-filemenu ~/Applications
+```
 
 
 ### Usage:
