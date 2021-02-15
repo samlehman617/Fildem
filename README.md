@@ -1,67 +1,60 @@
-# Global-File-Menu
+# GlobalFileMenu GNOME Shell Extension
 
-## Global menu GNOME Shell extension
+## About:
+This project is a fork of [gonzaarcr/Fildem](https://github.com/gonzaarcr/Fildem) which is a fork of gnomehud with the addition of a global menu bar. This is a prototype, and GTK-4 plans to remove exporting of appmenu module, so compatibility with GTK-4 will likely never work barring upstream changes.
 
-[![Buy Me A Coffee](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg)](https://buymeacoffee.com/gonza)
+![File-Menu](https://user-images.githubusercontent.com/19943481/95288612-1d272a80-083f-11eb-9400-be88f61e054d.png)
 
-![Fildem](https://user-images.githubusercontent.com/19943481/95288612-1d272a80-083f-11eb-9400-be88f61e054d.png)
 
-This project is a fork of gnomehud with the adition of a global menu bar. To install it you have to download this repo and install the extension copying/moving the `fildemGMenu@gonza.com` folder into `~/.local/share/gnome-shell/extensions`. Then, you have to run the app with `./run.sh`.
+## Installation
 
-You can also bring a HUD menu with Alt + Space.
+#### Install dependencies:
 
-This is a prototype, as I don’t know if people will like or how much it will last until devs nuke it, so fell free to let me know your opinion.
-
-## installation
-
-### Ubuntu
-
-You can install the modules with
-
+Ubuntu:
 ```
 sudo apt install libbamf3-dev bamfdaemon libkeybinder-3.0-dev appmenu-gtk2-module appmenu-gtk3-module unity-gtk-module-common
 ```
+Arch:
 
-And install the python dependency:
+Note upstream tested Arch in VM, compatibility is uncertain. 
+```
+pacman -S bamf appmenu-gtk-module libkeybinder3 libdbusmenu-gtk2 libdbusmenu-gtk3 libdbusmenu-qt5
+```
 
+#### Install Python dependency:
 ```
 pip3 install fuzzysearch
 ```
 
-And then configure the following files:
+### Configure GTK:
 
-- Create the file `~/.gtkrc-2.0` and append `gtk-modules="appmenu-gtk-module"`
-- The file `~/.config/gtk-3.0/settings.ini` should have the line `gtk-modules="appmenu-gtk-module"` under [Settings]. If it doesn’t exist create it and paste the following
-
+- For GTK-2.0, make sure the file `~/.gtkrc-2.0` (or similar for your config. I use `~/.config/gtk-2.0/gtkrc`) exists and append `gtk-modules="appmenu-gtk-module"`
+- For GTK-3.0, make sure the file `~/.config/gtk-3.0/settings.ini` exists and has the following line `gtk-modules="appmenu-gtk-module"` under `[Settings]`. If it doesn’t exist create it and paste the following:
 ```
 [Settings]
 gtk-modules="appmenu-gtk-module"
 ```
 
-### Arch
+### Clone repo:
+`git clone https://github.com/samlehman617/gnome-shell-extension-filemenu`
 
-I got it to run on a vm, since Arch is so customizable I can’t guaranted it will work on all system, but the modules installed were
+### Move extension directory
+Move our extension code and metadata to the GNOME Shell Extensions directory.
+`mv gnome-shell-extension-filemenu/globalfilemenu@samlehman.dev ~/.local/share/gnome-shell/extensions`
 
-```
-pacman -S bamf appmenu-gtk-module libkeybinder3 libdbusmenu-gtk2 libdbusmenu-gtk3 libdbusmenu-qt5
-```
+### Move executable
+Move this repo to somewhere in your system PATH (I use `~/Applications`).
+`mv gnome-shell-extension-filemenu ~/Applications`
 
-You also have to install `fuzzysearch` with pip (`pip3 install fuzzysearch`) and edit the files explained on the Ubuntu section.
+## Usage
+- Run by launching `run.sh` OR configure your system to launch `run.sh` on startup (see below).
+- Show HUD with [ALT]+[SPACE]
+- Hover the top panel in gnome-shell to reveal the menu
 
 ## Customization
-
-### Menu always visible
-
-If you don’t want to have to hover the menu to view it, change `FORCE_SHOW_MENU` in `extension.js` to `true`, and reload the shell (Alt+F2, r).
-
-### AppMenu Button always visible
-
-The AppMenu button is the gnome button that appears on the top panel. You can set `SHOW_APPMENU_BUTTON` to `true` if you want that. If you are using Unite extension, you can set the button to show the app name instead of the title, otherwise it will be to long and the menu will appear at the right side of the panel.
-
-### Remove space in between buttons
-
-In some gnome themes, the buttons have a small spacing beetween them. This can make the buttons easy to miss and unfocusing our window if it’s not maximized. To fix this, add this somewhere on your `gnome-shell.css` theme:
-
+ - Always Show Menu (default: show on hover): change `FORCE_SHOW_MENU` in `globalfilemenu@samlehman.dev/extension.js` to `true`, and reload GNOME-Shell (`Alt+F2, r`).
+ - Always Show AppMenu Button: change `SHOW_APPMENU_BUTTON` in `globalfilemenu@samlehman.dev/extension.js` to `true`, and reload GNOME-Shell (`Alt+F2, r`).
+ - Fix Space Between Buttons: Some GNOME-Shell themes have a small spacing between the buttons. This can make the buttons easy to miss and unfocus our window if not maximized. To fix, add the following somewhere in your `gnome-shell.css` theme: 
 ```
 #panel #panelLeft {
   spacing: 0px; }
@@ -69,14 +62,28 @@ In some gnome themes, the buttons have a small spacing beetween them. This can m
   spacing: 0px; }
 ```
 
-## Running the program at startup
 
-If you manage to make the program work and want to have it running automatically at startup you can add an entry to `gnome-session-properties` with the name of the program and the path to execute it.
+## Running at startup
 
-## State of the Apps
+Configure `autostart` to automatically run `run.sh` at system startup" by creating a `.desktop` file in your `autostart` directory (e.g. `~/.config/autostart/globalfilemenu.desktop`) containing the following:
+```
+[Desktop Entry]
+Type=Application
+Name=GlobalFileMenu
+Exec='[SOME APPLICATION DIRECTORY IN YOUR SYSTEM PATH]/GlobalFileMenu/run.sh'
+StartupNotify=false
+Terminal=false
+```
 
-To see a list of apps that work check [the wiki](https://github.com/gonzaarcr/Fildem/wiki/Using#state-of-the-apps)
+## Compatibility
+This extension can only work with programs that have exported their appmenu module. Many programs do not do this, and support for doing so will be removed in GTK-4.0. Expect fewer programs to be compatible as they migrate to GTK-4.0.
 
-## Installation troubleshooting
+[The wiki has a list of working apps](https://github.com/samlehman617/gnome-shell-extension-filemenu/wiki/Using#state-of-the-apps)
 
-If you have any question on to get it to work, please don’t create an issue, use [this discussion](https://github.com/gonzaarcr/Fildem/discussions/33).
+## Troubleshooting
+
+See [this discussion](https://github.com/gonzaarcr/Fildem/discussions/33). Please do not open an issue upstream. Either use the existing discussion or open an issue on this repo. 
+
+
+## Credits
+Forked from [gonzaarcr/Fildem](https://github.com/gonzaarcr/Fildem). [![Buy Him A Coffee](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg)](https://buymeacoffee.com/gonza)
