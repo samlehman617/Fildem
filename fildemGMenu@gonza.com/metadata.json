@@ -1,9 +1,9 @@
 {
-  "name": "Fildem global menu",
-  "description": "Global menu for Ubuntu 20",
-  "shell-version": [
-    "3.36"
-  ],
-  "url": "https://github.com/gonzaarcr/Fildem",
-  "uuid": "fildemGMenu@gonza.com"
+  "name": "Global file menu",
+  "description": "Insert application file menus into the top panel",
+  "shell-version": ["3.36", "3.38", "40.0"],
+  "schema-id": "org.gnome.shell.extensions.global-file-menu",
+  "gettext-domain": "global-file-menu",
+  "url": "https://github.com/samlehman617/gnome-shell-extension-filemenu",
+  "uuid": "globalfilemenu@samlehman.dev"
 }
